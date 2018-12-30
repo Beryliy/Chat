@@ -6,6 +6,7 @@
     <string name="title_chat">Chat</string>
     <string name="title_settings">Settings</string>
 
-
+    <!-- strings for ChatFragment -->
+    <string name="send_button">Send</string>
 
 </resources>
