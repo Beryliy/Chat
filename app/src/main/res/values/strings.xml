@@ -9,4 +9,7 @@
     <!-- strings for ChatFragment -->
     <string name="send_button">Send</string>
 
+    <!-- strings for ProfileFragment -->
+    <string name="edit_prifile">Edit Profile</string>
+
 </resources>
