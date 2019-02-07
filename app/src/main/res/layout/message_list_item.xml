@@ -14,14 +14,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/user_name"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:layout_toRightOf="@id/user_icon"
         android:text="user"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:id="@+id/message_body"
+        android:layout_margin="5dp"
         android:layout_toRightOf="@id/user_icon"
         android:layout_below="@id/user_name"
         android:text="message"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sending_date"
+        android:text="17.02.2019"
+        android:layout_margin="5dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"/>
 </RelativeLayout>

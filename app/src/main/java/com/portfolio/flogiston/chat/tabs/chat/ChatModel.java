@@ -1,22 +1,22 @@
 package com.portfolio.flogiston.chat.tabs.chat;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.portfolio.flogiston.chat.db.remote_db.FirebaseStuff;
 import com.portfolio.flogiston.chat.model.Message;
 
-import io.reactivex.Completable;
-import io.reactivex.CompletableEmitter;
-import io.reactivex.CompletableOnSubscribe;
-import io.reactivex.SingleEmitter;
-
 public class ChatModel implements IChatModel{
     private DatabaseReference databaseReference;
+
+    interface OnDataChanged{
+        void onMessageLoad();
+    }
+
     @Override
     public void saveMessage(Message message) {
         FirebaseStuff.getMessageReference().setValue(message);
@@ -25,8 +25,32 @@ public class ChatModel implements IChatModel{
 
     @Override
     public void readMessages() {
-        ChildEventListener childEventListener = new C
-        FirebaseStuff.getMessageReference().addChildEventListener()
+        ChildEventListener childEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+        FirebaseStuff.getMessageReference().addChildEventListener(childEventListener);
     }
 
 }
