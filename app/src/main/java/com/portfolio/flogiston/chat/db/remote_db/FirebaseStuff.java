@@ -8,9 +8,9 @@ public class FirebaseStuff {
         return FirebaseDatabase.getInstance();
     }
     public static DatabaseReference getMessageReference(){
-        return getFirebaseDatabase().getReference("messages");
+        return getFirebaseDatabase().getReference().child("messages");
     }
     public static DatabaseReference getUserReference(){
-        return getFirebaseDatabase().getReference("users");
+        return getFirebaseDatabase().getReference().child("users");
     }
 }

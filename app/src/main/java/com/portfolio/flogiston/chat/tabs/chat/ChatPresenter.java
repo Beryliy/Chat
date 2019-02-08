@@ -1,5 +1,7 @@
 package com.portfolio.flogiston.chat.tabs.chat;
 
+import android.widget.EditText;
+
 import com.portfolio.flogiston.chat.model.Message;
 import com.portfolio.flogiston.chat.ui.chat_tab.IChatFragment;
 
@@ -16,5 +18,17 @@ public class ChatPresenter implements IChatPresenter, ChatModel.OnDataChanged {
     @Override
     public void onMessageLoad(Message message) {
         fragment.addData(message);
+    }
+
+    @Override
+    public void sendMessage() {
+        Message message = new Message();
+        EditText messageEditText = fragment.getEditText();
+        message.setMessage(messageEditText.getText().toString());
+        messageEditText.setText("");
+        //TODO: receive user and set his name to message
+        message.setUserName("username");
+        message.setDate(System.currentTimeMillis());
+        model.saveMessage(message);
     }
 }

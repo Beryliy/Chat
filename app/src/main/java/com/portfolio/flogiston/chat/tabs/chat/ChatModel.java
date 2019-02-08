@@ -25,7 +25,7 @@ public class ChatModel implements IChatModel{
 
     @Override
     public void saveMessage(Message message) {
-        FirebaseStuff.getMessageReference().setValue(message);
+        FirebaseStuff.getMessageReference().push().setValue(message);
                 //TODO: add OnSuccessListener and OnFailureListener
     }
 

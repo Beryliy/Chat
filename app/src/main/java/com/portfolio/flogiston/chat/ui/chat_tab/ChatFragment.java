@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.portfolio.flogiston.chat.R;
@@ -22,11 +24,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ChatFragment extends Fragment implements IChatFragment{
     private IChatPresenter presenter;
-    private ChatAdapter chatAdapter = new ChatAdapter();
+    ChatAdapter chatAdapter = new ChatAdapter();
     @BindView(R.id.messages_list) RecyclerView messagesList;
+    @BindView(R.id.message_edit_text) EditText messageEditText;
+    @BindView(R.id.send_button) Button sendButton;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,7 +41,13 @@ public class ChatFragment extends Fragment implements IChatFragment{
         messagesList.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         messagesList.setLayoutManager(layoutManager);
+        messagesList.setAdapter(chatAdapter);
         return view;
+    }
+
+    @OnClick(R.id.send_button)
+    public void sendButtonClicked(){
+        presenter.sendMessage();
     }
 
     @Override
@@ -45,50 +56,9 @@ public class ChatFragment extends Fragment implements IChatFragment{
         chatAdapter.notifyDataSetChanged();
     }
 
-    private static class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
-        private List<Message> messages;
-        ChatAdapter(){
-            messages = new ArrayList<Message>();
-        }
-
-        private void add(Message message){
-            messages.add(message);
-        }
-
-
-
-        public static class ChatViewHolder extends RecyclerView.ViewHolder{
-            @BindView(R.id.user_name) TextView userNameTextView;
-            @BindView(R.id.message_body) TextView messageBodyTextView;
-            @BindView(R.id.sending_date) TextView sendingDateTextView;
-
-            public ChatViewHolder(View itemView) {
-                super(itemView);
-                ButterKnife.bind(this, itemView);
-            }
-        }
-
-        @NonNull
-        @Override
-        public ChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View messageListSimpleItem = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.message_list_item, parent, false);
-            return new ChatViewHolder(messageListSimpleItem);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull ChatViewHolder holder, int position) {
-            Message message = messages.get(position);
-            holder.userNameTextView.setText(message.getUserName());
-            holder.messageBodyTextView.setText(message.getMessage());
-            holder.sendingDateTextView.setText(String.valueOf(message.getDate()));
-        }
-
-        @Override
-        public int getItemCount() {
-            return messages.size();
-        }
-
+    @Override
+    public EditText getEditText() {
+        return messageEditText;
     }
 
 }
