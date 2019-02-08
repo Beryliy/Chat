@@ -28,6 +28,8 @@ public class ChatModel implements IChatModel{
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Message currentMessage = dataSnapshot.getValue(Message.class);
+                
             }
 
             @Override

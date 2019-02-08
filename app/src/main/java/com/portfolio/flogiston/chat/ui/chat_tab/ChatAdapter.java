@@ -16,7 +16,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
 
     public static class ChatViewHolder extends RecyclerView.ViewHolder{
-        @BindView(R.id.user_icon) CircleImageView userIcon;
         @BindView(R.id.user_name) TextView userNameTextView;
         @BindView(R.id.message_body) TextView messageBodyTextView;
         @BindView(R.id.sending_date) TextView sendingDateTextView;

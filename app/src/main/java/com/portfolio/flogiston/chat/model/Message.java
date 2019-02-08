@@ -1,10 +1,10 @@
 package com.portfolio.flogiston.chat.model;
 
 public class Message {
-    private long userId;
+    private String userName;
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUserId(String userName) {
+        this.userName = userName;
     }
 
     private String message;

@@ -10,4 +10,7 @@ public class FirebaseStuff {
     public static DatabaseReference getMessageReference(){
         return getFirebaseDatabase().getReference("messages");
     }
+    public static DatabaseReference getUserReference(){
+        return getFirebaseDatabase().getReference("users");
+    }
 }
