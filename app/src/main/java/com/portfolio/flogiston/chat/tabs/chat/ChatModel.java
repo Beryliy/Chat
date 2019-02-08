@@ -11,11 +11,17 @@ import com.portfolio.flogiston.chat.db.remote_db.FirebaseStuff;
 import com.portfolio.flogiston.chat.model.Message;
 
 public class ChatModel implements IChatModel{
-    private DatabaseReference databaseReference;
 
     interface OnDataChanged{
-        void onMessageLoad();
+        void onMessageLoad(Message message);
     }
+
+    private OnDataChanged callback;
+
+    public ChatModel(OnDataChanged callback){
+        this.callback = callback;
+    }
+
 
     @Override
     public void saveMessage(Message message) {
@@ -29,7 +35,7 @@ public class ChatModel implements IChatModel{
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Message currentMessage = dataSnapshot.getValue(Message.class);
-                
+                callback.onMessageLoad(currentMessage);
             }
 
             @Override
