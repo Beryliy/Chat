@@ -3,6 +3,8 @@ package com.portfolio.flogiston.chat.tabs.chat;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -14,6 +16,8 @@ public class ChatModel implements IChatModel{
 
     interface OnDataChanged{
         void onMessageLoad(Message message);
+        void onMessageSaved();
+        void onError(String errorMessage);
     }
 
     private OnDataChanged callback;
@@ -25,7 +29,19 @@ public class ChatModel implements IChatModel{
 
     @Override
     public void saveMessage(Message message) {
-        FirebaseStuff.getMessageReference().push().setValue(message);
+        FirebaseStuff.getMessageReference().push().setValue(message)
+        .addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                callback.onMessageSaved();
+            }
+        })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                callback.onError(e.getMessage());
+            }
+        });
                 //TODO: add OnSuccessListener and OnFailureListener
     }
 

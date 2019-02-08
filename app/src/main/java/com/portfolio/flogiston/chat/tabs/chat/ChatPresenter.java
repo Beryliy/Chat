@@ -21,11 +21,20 @@ public class ChatPresenter implements IChatPresenter, ChatModel.OnDataChanged {
     }
 
     @Override
+    public void onMessageSaved() {
+        fragment.getEditText().setText("");
+    }
+
+    @Override
+    public void onError(String errorMessage) {
+        fragment.handleSendingError(errorMessage);
+    }
+
+    @Override
     public void sendMessage() {
         Message message = new Message();
         EditText messageEditText = fragment.getEditText();
         message.setMessage(messageEditText.getText().toString());
-        messageEditText.setText("");
         //TODO: receive user and set his name to message
         message.setUserName("username");
         message.setDate(System.currentTimeMillis());

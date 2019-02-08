@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.portfolio.flogiston.chat.R;
 import com.portfolio.flogiston.chat.model.Message;
@@ -59,6 +60,12 @@ public class ChatFragment extends Fragment implements IChatFragment{
     @Override
     public EditText getEditText() {
         return messageEditText;
+    }
+
+    @Override
+    public void handleSendingError(String errorMessage) {
+        String text = "Error occur while senging:" + errorMessage;
+        Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
     }
 
 }
